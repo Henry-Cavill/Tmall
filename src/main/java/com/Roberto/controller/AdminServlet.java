@@ -51,16 +51,14 @@ public class AdminServlet extends HttpServlet {
         // 判断登录状态
         Result result = new Result();
         if(login != null){
-            result.setCode(0);
             AdminLoginVO loginVO = new AdminLoginVO();
             loginVO.setToken(login.getNickname());
             loginVO.setName(login.getNickname());
+            response.getWriter().println(gson.toJson(Result.ok(loginVO)));
             result.setData(loginVO);
         }else {
-            result.setCode(1000);
-            result.setMessage("登陆失败，确认用户名和密码");
+            response.getWriter().println(Result.error("用户名或者密码错误"));
         }
-        response.getWriter().println(gson.toJson(result));
 
     }
 
