@@ -2,6 +2,7 @@ package com.Roberto.controller;
 
 import com.Roberto.model.bo.Admin;
 import com.Roberto.model.bo.AdminLoginBO;
+import com.Roberto.model.bo.AdminSerachBO;
 import com.Roberto.model.bo.Result;
 import com.Roberto.model.vo.AdminLoginVO;
 import com.Roberto.service.AdminService;
@@ -30,7 +31,26 @@ public class AdminServlet extends HttpServlet {
         String replace = requestURI.replace("/api/admin/admin/", "");
         if("login".equals(replace)){
             login(request,response);
+        } else if ("getSearchAdmins".equals(replace)) {  // 判断请求相应动作
+            getSearchAdmins(request,response);
         }
+    }
+
+    /**
+     * 条件查询admin管理员账户信息
+     * 1.浏览器向8084发送一个请求，请求中携带了账户昵称参数
+     * 2.查询数据库，返回满足条件的数据
+     * 3.根据结果返回不同的响应
+     * @param request
+     * @param response
+     */
+    private void getSearchAdmins(HttpServletRequest request, HttpServletResponse response) throws IOException {
+        String requestBody = HttpUtils.getRequestBody(request);
+        // json转成可以处理的数据类型
+        AdminSerachBO serachBO = gson.fromJson(requestBody, AdminSerachBO.class);
+        List<Admin> admins = adminService.getSearchAdmins(serachBO);
+        response.getWriter().println(gson.toJson(Result.ok(admins)));
+
     }
 
     /**

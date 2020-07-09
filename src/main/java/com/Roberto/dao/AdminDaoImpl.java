@@ -2,12 +2,15 @@ package com.Roberto.dao;
 
 import com.Roberto.model.bo.Admin;
 import com.Roberto.utils.DruidUtils;
+import com.alibaba.druid.util.StringUtils;
 import org.apache.commons.dbutils.QueryRunner;
 import org.apache.commons.dbutils.handlers.BeanHandler;
 import org.apache.commons.dbutils.handlers.BeanListHandler;
 
 import java.sql.SQLException;
+import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 
 /**
  * @Classname AdminDaoImpl
@@ -43,5 +46,27 @@ public class AdminDaoImpl implements AdminDao {
             throwables.printStackTrace();
         }
         return admins;
+    }
+
+    /**
+     * 写sql语句
+     * 动态sql思想
+     * @param admin
+     * @return
+     */
+    @Override
+    public List<Admin> getSearchAdmins(Admin admin) {
+        Map<String, Object> params = getDynamicSql(admin);
+        return null;
+    }
+
+    // 组合使用sql查询
+    private Map<String,Object> getDynamicSql(Admin admin) {
+        String base = "select * from admin where 1 = 1";
+        List<String> params = new ArrayList<>();
+        if(!StringUtils.isEmpty(admin.getEmail())){
+
+        }
+        return null;
     }
 }

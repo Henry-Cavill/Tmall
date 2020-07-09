@@ -8,4 +8,6 @@ public interface AdminDao {
     Admin login(Admin admin);
 
     List<Admin> allAdmins();
+
+    List<Admin> getSearchAdmins(Admin admin);
 }

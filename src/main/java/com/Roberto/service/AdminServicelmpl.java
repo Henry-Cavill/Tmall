@@ -4,6 +4,7 @@ import com.Roberto.dao.AdminDao;
 import com.Roberto.dao.AdminDaoImpl;
 import com.Roberto.model.bo.Admin;
 import com.Roberto.model.bo.AdminLoginBO;
+import com.Roberto.model.bo.AdminSerachBO;
 
 import java.util.List;
 
@@ -28,5 +29,13 @@ public class AdminServicelmpl implements AdminService {
     @Override
     public List<Admin> allAdmins() {
         return adminDao.allAdmins();
+    }
+
+    @Override
+    public List<Admin> getSearchAdmins(AdminSerachBO serachBO) {
+        Admin admin = new Admin();
+        admin.setEmail(serachBO.getEmail());
+        admin.setNickname(serachBO.getNickname());
+        return adminDao.getSearchAdmins(admin);
     }
 }
